@@ -47,15 +47,48 @@ int main()
         if (loginUser(username, password))
         {
             int option;
+            string subject;
+            string grade;
             std::cout << "Login successful.\n";
             cout << "Choose one of the options below\n";
             cout << "1. Enter your subjects: \n";
             cout << "2. Enter your grade: \n";
             cout << "3. See info: \n";
-
+            cout << "4. Exit: \n";
+            cin >> option;
             switch (option)
             {
             case 1:
+                do
+                {
+                    cout << "Write your subject! If you are done, type 'exit': ";
+                    cin >> subject;
+                    ofstream file("data" + username + ".txt", ::ios::app);
+                    if (subject != "exit")
+                    {
+                        file << subject << ",";
+                    }
+                } while (subject != "exit");
+                break;
+            case 2:
+                std::string line;
+                int lineNumber = 0;
+                cout << "Choose your subject, then enter a grade: ";
+                ifstream inputFile("data" + username + ".txt");
+                while (std::getline(inputFile, line))
+                {
+                    lineNumber++;
+                    if (lineNumber == 2)
+                    {
+                        // Process the second line (subject information) here
+                        std::cout << "Second Line: " << line << std::endl;
+                        // You can split this line into subjects if needed
+                        // For example, using string splitting or tokenization
+                        break; // Exit the loop after reading the second line
+                    }
+                }
+
+                break;
             }
         }
         else
